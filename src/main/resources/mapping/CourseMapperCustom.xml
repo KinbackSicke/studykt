@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studykt.mapper.CourseMapperCustom">
+    <resultMap id="BaseResultMap" type="com.studykt.controller.vo.CourseVO">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+        <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+        <result column="teacher_avatar_url" jdbcType="VARCHAR" property="teacherAvatarUrl" />
+        <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
+        <result column="study_count" jdbcType="INTEGER" property="studyCount" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="favor_count" javaType="INTEGER" property="favorCount" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.studykt.controller.vo.CourseVO">
+        <result column="teacher_introduction" jdbcType="LONGVARCHAR" property="teacherIntroduction" />
+    </resultMap>
+
+    <resultMap id="favorResultMap" type="com.studykt.controller.vo.CourseFavorVO">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
+        <result column="study_count" jdbcType="INTEGER" property="studyCount" />
+        <result column="favor_id" jdbcType="VARCHAR" property="favorId" />
+        <result column="favor_date" jdbcType="VARCHAR" property="favorDate" />
+    </resultMap>
+
+    <select id="selectAllCourses" resultMap="BaseResultMap">
+        SELECT course.*, COUNT(user_favor_course.user_id) AS favor_count
+        FROM course
+        LEFT JOIN user_favor_course
+        ON course.id = user_favor_course.course_id
+        GROUP BY course.id
+    </select>
+
+    <select id="selectByCreateDateDESC" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT course.*, COUNT(user_favor_course.user_id) AS favor_count
+        FROM course
+            LEFT JOIN user_favor_course
+                ON course.id = user_favor_course.course_id
+        GROUP BY course.id
+        order by course.create_date DESC
+        <if test="numOfRecords != null">
+            limit #{numOfRecords, jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectFavorCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) as favor_count
+        FROM user_favor_course
+        WHERE course_id = #{courseId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectFavorCoursesByUserId" parameterType="java.lang.String" resultMap="favorResultMap">
+        SELECT course.id, course.title, course.cover_url, course.study_count,
+               user_favor_course.favor_date ,user_favor_course.id AS favor_id
+        FROM course
+            LEFT JOIN user_favor_course
+                ON course.id = user_favor_course.course_id
+        WHERE user_favor_course.user_id = #{userId, jdbcType=VARCHAR}
+        ORDER BY user_favor_course.favor_date DESC
+    </select>
+
+    <select id="selectByCourseTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT course.*, COUNT(user_favor_course.user_id) AS favor_count
+        FROM course
+            LEFT JOIN user_favor_course
+                ON course.id = user_favor_course.course_id
+        <if test="searchKey != null">
+            WHERE course.title LIKE #{searchKey, jdbcType=VARCHAR}
+        </if>
+        GROUP BY course.id
+    </select>
+
+    <select id="selectByTagName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        c.*, COUNT(fc.user_id) AS favor_count
+        FROM
+        course c
+        LEFT JOIN course_tag ct ON c.id = ct.course_id
+        LEFT JOIN user_favor_course fc ON c.id = fc.course_id
+        <if test="searchKey != null">
+            WHERE ct.tag_name LIKE #{searchKey, jdbcType=VARCHAR}
+        </if>
+        GROUP BY c.id
+    </select>
+
+    <select id="selectByTitleAndTagName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            c.*, COUNT(fc.user_id) AS favor_count
+        FROM
+             course c
+                LEFT JOIN user_favor_course fc ON c.id = fc.course_id
+        <if test="searchKey != null">
+            WHERE c.title LIKE #{searchKey, jdbcType=VARCHAR}
+        </if>
+        GROUP BY c.id
+        UNION
+        SELECT
+            c.*, COUNT(fc.user_id) AS favor_count
+        FROM
+             course c
+                LEFT JOIN course_tag ct ON c.id = ct.course_id
+                LEFT JOIN user_favor_course fc ON c.id = fc.course_id
+        <if test="searchKey != null">
+            WHERE ct.tag_name LIKE #{searchKey, jdbcType=VARCHAR}
+        </if>
+        GROUP BY c.id
+    </select>
+
+    <select id="selectRecommendedById" resultMap="BaseResultMap">
+        SELECT c.*, COUNT(user_id) AS favor_count
+        FROM itemcf_course_recs cr
+                 LEFT JOIN course c
+                           ON cr.comp_course_id = c.id
+                 LEFT JOIN user_favor_course fc
+                           ON cr.comp_course_id = fc.course_id
+        WHERE cr.course_id = #{courseId, jdbcType=VARCHAR}
+        GROUP BY cr.comp_course_id
+        ORDER BY cr.score DESC
+        <if test="numOfRecords != null">
+            limit #{numOfRecords, jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectByStudyCountDESC" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT course.*, COUNT(user_favor_course.user_id) AS favor_count
+        FROM course
+        LEFT JOIN user_favor_course
+        ON course.id = user_favor_course.course_id
+        GROUP BY course.id
+        order by course.study_count DESC
+        <if test="numOfRecords != null">
+            limit #{numOfRecords, jdbcType=INTEGER}
+        </if>
+    </select>
+
+
+</mapper>

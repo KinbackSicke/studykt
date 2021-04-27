@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.studykt.mapper.CourseCommentMapperCustom">
+
+  <resultMap id="CourseResultMap" type="com.studykt.controller.vo.CourseCommentVO">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+  </resultMap>
+
+  <resultMap id="UserResultMap" type="com.studykt.controller.vo.CourseCommentVO2">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+  </resultMap>
+
+  <select id="selectByCourseId" parameterType="java.lang.String" resultMap="CourseResultMap">
+    SELECT cc.*, u.nick_name AS nick_name, u.avatar_url AS avatar_url
+    FROM course_comment cc
+           LEFT JOIN wx_user u
+                     ON cc.user_id = u.openid
+    WHERE cc.course_id = #{courseId, jdbcType=VARCHAR}
+    ORDER BY cc.create_time DESC
+  </select>
+
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="UserResultMap">
+    SELECT cc.*, c.title AS title, c.cover_url AS cover_url
+    FROM course_comment cc
+           LEFT JOIN course c
+                     ON cc.course_id = c.id
+    WHERE cc.user_id = #{userId, jdbcType=VARCHAR}
+    ORDER BY cc.create_time DESC
+  </select>
+
+</mapper>
