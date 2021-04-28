@@ -70,6 +70,15 @@ public class WxLoginController extends BaseController {
         return CommonReturnType.create(userVO);
     }
 
+    @ApiOperation(value = "User logout", notes = "用户退出登录api")
+    @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "string", paramType = "query")
+    @PostMapping("/logout")
+    public CommonReturnType logout(String userId) {
+        redis.del(USER_REDIS_SESSION + ":" + userId);
+        return CommonReturnType.create();
+    }
+
+
     /**
      * 获取微信用户登录的唯一openid
      * @param code
