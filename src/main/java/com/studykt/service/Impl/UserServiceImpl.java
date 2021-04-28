@@ -1,6 +1,7 @@
 package com.studykt.service.Impl;
 
 import com.studykt.entity.StudyRecord;
+import com.studykt.entity.StudyRecordExample;
 import com.studykt.entity.User;
 import com.studykt.mapper.StudyRecordMapper;
 import com.studykt.mapper.UserMapper;
@@ -51,5 +52,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int addStudyRecord(StudyRecord studyRecord) {
         return studyRecordMapper.insertSelective(studyRecord);
+    }
+
+    @Override
+    public Integer selectTotalStudyTimeById(String userId) {
+        if (StringUtils.isBlank(userId)) {
+            return 0;
+        }
+        return studyRecordMapper.selectStudyDurationSumByUserId(userId);
     }
 }

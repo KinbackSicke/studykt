@@ -5,10 +5,9 @@ import com.csvreader.CsvWriter;
 import org.n3r.idworker.Sid;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedHashSet;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class TestController {
 
@@ -26,8 +25,6 @@ public class TestController {
         }
         return result;
     }
-
-
 
     public static void main(String[] args) {
         /*String filePath = "data.csv";
@@ -59,6 +56,15 @@ public class TestController {
             e.printStackTrace();
         } finally {
             writer.close();
-        }*/
+        }
+        */
+        try {
+            Date d = new Date(1619498624000L);
+            long time = d.getTime();
+            System.out.println(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
