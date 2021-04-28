@@ -1,6 +1,8 @@
 package com.studykt.service.Impl;
 
+import com.studykt.entity.StudyRecord;
 import com.studykt.entity.User;
+import com.studykt.mapper.StudyRecordMapper;
 import com.studykt.mapper.UserMapper;
 import com.studykt.service.UserService;
 import com.studykt.utils.MD5Utils;
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private StudyRecordMapper studyRecordMapper;
 
     @Override
     public User validateLogin(User user) {
@@ -41,5 +46,10 @@ public class UserServiceImpl implements UserService {
     public int updateUser(User user) {
         userMapper.updateByPrimaryKey(user);
         return 0;
+    }
+
+    @Override
+    public int addStudyRecord(StudyRecord studyRecord) {
+        return studyRecordMapper.insertSelective(studyRecord);
     }
 }

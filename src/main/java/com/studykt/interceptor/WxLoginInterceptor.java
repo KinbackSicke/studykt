@@ -27,15 +27,15 @@ public class WxLoginInterceptor implements HandlerInterceptor {
         String openid = request.getHeader("openid");
         String userToken = request.getHeader("userToken");
         if (StringUtils.isNotBlank(openid) && StringUtils.isNotBlank(userToken)) {
-            System.out.println("请求拦截...");
+            // System.out.println("请求拦截...");
             String uniqueToken = redis.get(USER_REDIS_SESSION + ":" + openid);
             if (StringUtils.isEmpty(uniqueToken) && StringUtils.isBlank(uniqueToken)) {
-                System.out.println("请重新登录...");
+                // System.out.println("请重新登录...");
                 returnErrorResponse(response, CommonReturnType.create(501,"请重新登录..."));
                 return false;
             } else {
                 if (!uniqueToken.equals(userToken)) {
-                    System.out.println("账号已在别的手机登录...");
+                    // System.out.println("账号已在别的手机登录...");
                     returnErrorResponse(response, CommonReturnType.create(501, "账号已登录..."));
                     return false;
                 }
@@ -43,7 +43,7 @@ public class WxLoginInterceptor implements HandlerInterceptor {
         } else {
             return false;
         }
-        System.out.println("通过拦截器...");
+        // System.out.println("通过拦截器...");
         return true;
     }
 

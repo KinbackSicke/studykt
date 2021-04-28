@@ -24,19 +24,23 @@ public class BaseController {
 
     @Autowired
     public Sid sid;
-
+    // 用户登录redis
     public static final String USER_REDIS_SESSION = "user-redis-session";
-
+    // 用户历史记录redis
     public static final String USER_COURSE_HISTORY = "user-course-history";
-
+    // 用户最后一次学习时间
+    public static final String USER_LAST_STUDY = "user-last-study";
+    // 用户连续学习天数
+    public static final String USER_CONSTANT_STUDY = "user-constant-study";
+    // redis默认过期时间1小时
     public static final long BASE_REDIS_TIMEOUT = 3600;
-
+    // 微信小程序APP ID
     public static final String APP_ID = "wxfd4bfc16294b0ddd";
-
+    // 微信小程序APP SECRET
     public static final String APP_SECRET = "d52c97f48ce9cc39e3722a58a9581f56";
-
+    // 微信登录请求接口
     public static final String API_WEIXIN_REQUEST_URL = "https://api.weixin.qq.com/sns/jscode2session";
-
+    // 分页默认每页大小
     public static final Integer DEFAULT_PAGE_SIZE = 8;
 
     @ExceptionHandler(Exception.class)

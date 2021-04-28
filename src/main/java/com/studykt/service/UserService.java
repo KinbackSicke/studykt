@@ -1,5 +1,6 @@
 package com.studykt.service;
 
+import com.studykt.entity.StudyRecord;
 import com.studykt.entity.User;
 
 import java.io.UnsupportedEncodingException;
@@ -14,5 +15,7 @@ public interface UserService {
     int addUser(User user);
 
     int updateUser(User user);
+
+    int addStudyRecord(StudyRecord studyRecord);
 
 }

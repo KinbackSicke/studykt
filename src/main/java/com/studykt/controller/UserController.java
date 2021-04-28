@@ -2,6 +2,7 @@ package com.studykt.controller;
 
 
 import com.mysql.cj.util.StringUtils;
+import com.studykt.entity.StudyRecord;
 import com.studykt.entity.User;
 import com.studykt.error.BusinessError;
 import com.studykt.error.BusinessException;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 @Api(value = "Api for user operations", tags = {"用户相关操作"})
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -41,5 +43,18 @@ public class UserController {
         }
         return CommonReturnType.create(user);
     }
+
+    @ApiOperation(value = "add user study record", notes = "用户学习记录api")
+    @PostMapping("/addStudyRecord")
+    public CommonReturnType addStudyRecord(@RequestBody StudyRecord studyRecord) throws BusinessException {
+        if (studyRecord == null || org.apache.commons.lang3.StringUtils.isBlank(studyRecord.getUserId())) {
+            throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        studyRecord.setId(sid.nextShort());
+        userService.addStudyRecord(studyRecord);
+        return CommonReturnType.create();
+    }
+
+
 
 }
