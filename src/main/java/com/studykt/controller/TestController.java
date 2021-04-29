@@ -26,8 +26,7 @@ public class TestController {
         return result;
     }
 
-    public static void main(String[] args) {
-        /*String filePath = "data.csv";
+    public static void readData(String filePath) {
         String [] courseIds = { "210410F276B7FZHH", "210410F276D63FK4", "210410F276G4P1KP",
                 "210410F276HKMCX4", "210410F276M60B2W", "210410F276NSA98H", "210410F276RF3SCH",
                 "210410F276TCP9D4", "210410F276X127MW", "210410F276Z6DWH0", "210410F2776MKBTC",
@@ -57,14 +56,19 @@ public class TestController {
         } finally {
             writer.close();
         }
-        */
-        try {
-            Date d = new Date(1619498624000L);
-            long time = d.getTime();
-            System.out.println(time);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    }
+
+    /**
+     * 数据格式：
+     * 类别
+     * 该类别题目数量
+     * @param filePath
+     */
+    public static void importProblems(String filePath) {
+
+    }
+
+    public static void main(String[] args) {
 
     }
 }

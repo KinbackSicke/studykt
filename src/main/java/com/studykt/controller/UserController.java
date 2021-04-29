@@ -72,10 +72,14 @@ public class UserController extends BaseController {
         if (StringUtils.isBlank(userId)) {
             throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR, "用户不存在");
         }
-        // 获取总的学习的时间
         Map<String, Integer> map = new HashMap<>();
-        Integer sum = userService.selectTotalStudyTimeById(userId);
-        map.put("total", sum);
+        // 获取单日学习时间
+        Double daily = userService.selectDailyStudyTimeById(userId);
+
+        map.put("daily", daily.intValue());
+        // 获取总的学习的时间
+        Double sum = userService.selectTotalStudyTimeById(userId);
+        map.put("total", sum.intValue());
         // 获取连续学习时间
         int constDays = getDaysCount(userId);
         map.put("DaysCount", constDays);

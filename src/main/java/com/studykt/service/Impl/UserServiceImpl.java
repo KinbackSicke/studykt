@@ -55,10 +55,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer selectTotalStudyTimeById(String userId) {
+    public Double selectTotalStudyTimeById(String userId) {
         if (StringUtils.isBlank(userId)) {
-            return 0;
+            return 0.;
         }
-        return studyRecordMapper.selectStudyDurationSumByUserId(userId);
+        Double res = studyRecordMapper.selectStudyDurationSumByUserId(userId);
+        return (res == null ? 0. : res);
+    }
+
+    @Override
+    public Double selectDailyStudyTimeById(String userId) {
+        if (StringUtils.isBlank(userId)) {
+            return 0.;
+        }
+        Double res = studyRecordMapper.selectStudyDurationSumByDay(userId);
+        return (res == null ? 0. : res);
     }
 }

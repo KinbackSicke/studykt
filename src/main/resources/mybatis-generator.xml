@@ -46,7 +46,7 @@
 <!--        <table schema="DB2ADMIN" tableName="search_record" domainObjectName="SearchRecord"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="search_tag" domainObjectName="SearchTag"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="course_comment" domainObjectName="CourseComment"></table>-->
-        <table schema="DB2ADMIN" tableName="study_record" domainObjectName="StudyRecord"></table>
+<!--        <table schema="DB2ADMIN" tableName="study_record" domainObjectName="StudyRecord"></table>-->
 
 
     </context>

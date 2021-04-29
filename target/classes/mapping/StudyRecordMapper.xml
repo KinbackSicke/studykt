@@ -301,10 +301,17 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <select id="selectStudyDurationSumByUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+  <select id="selectStudyDurationSumByUserId" parameterType="java.lang.String" resultType="java.lang.Double">
     SELECT SUM(study_duration)
     FROM study_record
     WHERE user_id = #{userId, jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectStudyDurationSumByDay" parameterType="java.lang.String" resultType="java.lang.Double">
+    SELECT SUM(study_duration)
+    FROM study_record
+    WHERE TO_DAYS(NOW()) = TO_DAYS(end_date)
+        AND user_id = #{userId, jdbcType=VARCHAR}
   </select>
 
 </mapper>

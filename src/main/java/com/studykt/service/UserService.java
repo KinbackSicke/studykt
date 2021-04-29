@@ -18,6 +18,7 @@ public interface UserService {
 
     int addStudyRecord(StudyRecord studyRecord);
 
-    Integer selectTotalStudyTimeById(String userId);
+    Double selectTotalStudyTimeById(String userId);
 
+    Double selectDailyStudyTimeById(String userId);
 }

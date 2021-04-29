@@ -96,5 +96,9 @@ public interface StudyRecordMapper {
 
 
 
-    Integer selectStudyDurationSumByUserId(String userId);
+    Double selectStudyDurationSumByUserId(String userId);
+
+
+
+    Double selectStudyDurationSumByDay(String userId);
 }
