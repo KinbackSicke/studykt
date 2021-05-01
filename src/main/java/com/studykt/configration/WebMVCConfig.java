@@ -32,7 +32,9 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/userCourseHistory/getUserCourseHistory")
                 .addPathPatterns("/favorCourse/addFavorCourse", "/favorCourse/removeFavorCourse", "/favorCourse/allFavored")
-                .addPathPatterns("/courseComment/addComment", "/courseComment/deleteComment");
+                .addPathPatterns("/courseComment/addComment", "/courseComment/deleteComment")
+                .addPathPatterns("/problem/getWrong", "/problem/getTestResult",
+                        "/problem/addTestResult", "/problem/addWrong");
     }
 
     @Bean

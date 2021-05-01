@@ -1,8 +1,10 @@
 package com.studykt.service.Impl;
 
+import com.studykt.entity.Feedback;
 import com.studykt.entity.StudyRecord;
 import com.studykt.entity.StudyRecordExample;
 import com.studykt.entity.User;
+import com.studykt.mapper.FeedbackMapper;
 import com.studykt.mapper.StudyRecordMapper;
 import com.studykt.mapper.UserMapper;
 import com.studykt.service.UserService;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private StudyRecordMapper studyRecordMapper;
+
+    @Autowired
+    private FeedbackMapper feedbackMapper;
 
     @Override
     public User validateLogin(User user) {
@@ -70,5 +75,13 @@ public class UserServiceImpl implements UserService {
         }
         Double res = studyRecordMapper.selectStudyDurationSumByDay(userId);
         return (res == null ? 0. : res);
+    }
+
+    @Override
+    public int addFeedback(Feedback feedback) {
+        if (feedback == null) {
+            return -1;
+        }
+        return feedbackMapper.insertSelective(feedback);
     }
 }

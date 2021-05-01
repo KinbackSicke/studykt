@@ -2,6 +2,8 @@ package com.studykt.controller;
 
 
 import com.csvreader.CsvWriter;
+import com.studykt.entity.Problem;
+import com.studykt.entity.ProblemOption;
 import org.n3r.idworker.Sid;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -58,15 +60,8 @@ public class TestController {
         }
     }
 
-    /**
-     * 数据格式：
-     * 类别
-     * 该类别题目数量
-     * @param filePath
-     */
-    public static void importProblems(String filePath) {
 
-    }
+
 
     public static void main(String[] args) {
 

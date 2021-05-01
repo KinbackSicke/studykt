@@ -197,7 +197,7 @@ public class RedisOperator {
         Long size = redisTemplate.boundListOps(key).size();
         if (size == null) {
             return;
-        } else if (size == 8L) {
+        } else if (size == 20L) {
             redisTemplate.boundListOps(key).rightPop();
         }
         redisTemplate.boundListOps(key).leftPush(value);

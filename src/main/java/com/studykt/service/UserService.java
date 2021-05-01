@@ -1,5 +1,6 @@
 package com.studykt.service;
 
+import com.studykt.entity.Feedback;
 import com.studykt.entity.StudyRecord;
 import com.studykt.entity.User;
 
@@ -21,4 +22,7 @@ public interface UserService {
     Double selectTotalStudyTimeById(String userId);
 
     Double selectDailyStudyTimeById(String userId);
+
+    int addFeedback(Feedback feedback);
+
 }

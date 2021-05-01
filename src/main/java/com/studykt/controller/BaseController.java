@@ -1,5 +1,7 @@
 package com.studykt.controller;
 
+import com.studykt.entity.Problem;
+import com.studykt.entity.ProblemOption;
 import com.studykt.error.BusinessError;
 import com.studykt.error.BusinessException;
 import com.studykt.response.CommonReturnType;
@@ -14,11 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class BaseController {
@@ -36,6 +37,8 @@ public class BaseController {
     public static final String USER_LAST_STUDY = "user-last-study";
     // 用户连续学习天数
     public static final String USER_CONSTANT_STUDY = "user-constant-study";
+    // 用户错题记录
+    public static final String USER_WRONG_PROBLEMS = "user-wrong-problem";
     // redis默认过期时间1小时
     public static final long BASE_REDIS_TIMEOUT = 3600;
     // 微信小程序APP ID
@@ -112,6 +115,5 @@ public class BaseController {
             return day2 - day1;
         }
     }
-
 
 }

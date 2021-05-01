@@ -47,6 +47,14 @@
 <!--        <table schema="DB2ADMIN" tableName="search_tag" domainObjectName="SearchTag"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="course_comment" domainObjectName="CourseComment"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="study_record" domainObjectName="StudyRecord"></table>-->
+        <!--<table schema="DB2ADMIN" tableName="problem" domainObjectName="Problem">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="analysis" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>-->
+<!--        <table schema="DB2ADMIN" tableName="problem_option" domainObjectName="ProblemOption"></table>-->
+<!--        <table schema="DB2ADMIN" tableName="test_result" domainObjectName="TestResult"></table>-->
+<!--        <table schema="DB2ADMIN" tableName="feedback" domainObjectName="Feedback"></table>-->
+<!--        <table schema="DB2ADMIN" tableName="message" domainObjectName="Message"></table>-->
 
 
     </context>

@@ -1,16 +1,18 @@
 package com.studykt.controller;
 
+import com.studykt.controller.vo.CourseCommentVO2;
+import com.studykt.entity.CourseComment;
+import com.studykt.entity.Feedback;
 import com.studykt.entity.StudyRecord;
 import com.studykt.entity.User;
 import com.studykt.error.BusinessError;
 import com.studykt.error.BusinessException;
 import com.studykt.response.CommonReturnType;
+import com.studykt.service.CourseCommentService;
 import com.studykt.service.UserService;
-import com.studykt.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +35,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CourseCommentService courseCommentService;
 
     @ApiOperation(value = "user information", notes = "获取用户信息api")
     @ApiImplicitParam(name="openid", value="用户的openid", required=true, dataType="string", paramType="query")
@@ -85,6 +90,31 @@ public class UserController extends BaseController {
         map.put("DaysCount", constDays);
         return CommonReturnType.create(map);
     }
+
+    @ApiOperation(value = "user comments", notes = "获取某个用户评论api")
+    @ApiImplicitParam(name="userId", value="用户的id", required=true, dataType="string", paramType="query")
+    @PostMapping("/userComment")
+    public CommonReturnType getUserComment(String userId) throws BusinessException {
+        if (StringUtils.isBlank(userId)) {
+            throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR, "用户不存在");
+        }
+        List<CourseCommentVO2> list = courseCommentService.selectByUserId(userId);
+        return CommonReturnType.create(list);
+    }
+
+    @ApiOperation(value = "add feedback", notes = "用户反馈api")
+    @PostMapping("/addFeedback")
+    private CommonReturnType addFeedback(@RequestBody Feedback feedback) throws BusinessException {
+        if (feedback == null || StringUtils.isBlank(feedback.getUserId())) {
+            throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        feedback.setId(sid.nextShort());
+        feedback.setCreateTime(new Date());
+        feedback.setProcessStatus(0);
+        userService.addFeedback(feedback);
+        return CommonReturnType.create();
+    }
+
 
     private void updateDaysCount(long now, String userId) {
         // 获取最后一次学习的日期
