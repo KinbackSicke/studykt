@@ -7,6 +7,7 @@
         <result column="introduction" jdbcType="VARCHAR" property="introduction" />
         <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
         <result column="teacher_avatar_url" jdbcType="VARCHAR" property="teacherAvatarUrl" />
+        <result column="teacher_introduction" jdbcType="VARCHAR" property="teacherIntroduction" />
         <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
         <result column="study_count" jdbcType="INTEGER" property="studyCount" />
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -30,6 +31,15 @@
         FROM course
         LEFT JOIN user_favor_course
         ON course.id = user_favor_course.course_id
+        GROUP BY course.id
+    </select>
+
+    <select id="selectCourseById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT course.*, COUNT(user_favor_course.user_id) AS favor_count
+        FROM course
+                 LEFT JOIN user_favor_course
+                           ON course.id = user_favor_course.course_id
+        WHERE course.id = #{courseId, jdbcType=VARCHAR}
         GROUP BY course.id
     </select>
 

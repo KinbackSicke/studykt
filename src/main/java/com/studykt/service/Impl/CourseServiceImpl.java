@@ -72,6 +72,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public CourseVO selectCourseVOById(String courseId) {
+        return courseMapperCustom.selectCourseById(courseId);
+    }
+
+    @Override
     public int updateCourse(Course course) {
         if (course == null) {
             return -1;
@@ -94,6 +99,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public int deleteCourseById(String courseId) {
+        return courseMapper.deleteByPrimaryKey(courseId);
+    }
+
+    @Override
     public Integer selectCourseFavorCount(String courseId) {
         if (StringUtils.isBlank(courseId)) {
             return 0;
@@ -102,11 +112,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public PageResult getAllCourses(Integer curPage, Integer pageSize) {
+    public List<CourseVO> getAllCourses() {
         // 使用pageHelper实现分页 curPage: 当前所在页，pageSize：页面大小
-        PageHelper.startPage(curPage, pageSize);
+
         List<CourseVO> list = courseMapperCustom.selectAllCourses();
-        return generatePageResult(list, curPage);
+        return list;
     }
 
     @Override

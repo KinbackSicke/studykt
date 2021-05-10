@@ -330,4 +330,9 @@
       browse_count = #{browseCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM problem
+  </select>
 </mapper>

@@ -17,4 +17,6 @@ public interface CourseCommentService {
     int deleteCommentById(String commentId);
 
     Long getCommentCountByCourseId(String courseId);
+
+    int deleteCommentByCourseId(String courseId);
 }

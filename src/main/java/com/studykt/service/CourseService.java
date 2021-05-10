@@ -18,13 +18,17 @@ public interface CourseService {
 
     Course selectCourseById(String courseId);
 
+    CourseVO selectCourseVOById(String courseId);
+
     int updateCourse(Course course);
 
     int updateCourseById(Course course);
 
+    int deleteCourseById(String courseId);
+
     Integer selectCourseFavorCount(String courseId);
 
-    PageResult getAllCourses(Integer curPage, Integer pageSize);
+    List<CourseVO> getAllCourses();
 
     PageResult getCoursesBySearchKey(String searchKey, Integer curPage, Integer pageSize);
 

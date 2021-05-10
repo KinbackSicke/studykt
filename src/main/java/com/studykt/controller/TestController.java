@@ -4,9 +4,11 @@ package com.studykt.controller;
 import com.csvreader.CsvWriter;
 import com.studykt.entity.Problem;
 import com.studykt.entity.ProblemOption;
+import com.studykt.utils.MD5Utils;
 import org.n3r.idworker.Sid;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -64,6 +66,11 @@ public class TestController {
 
 
     public static void main(String[] args) {
-
+        try {
+            String str = MD5Utils.encodeByMD5("12345");
+            System.out.println(str);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

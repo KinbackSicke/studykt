@@ -17,6 +17,8 @@ public interface UserService {
 
     int updateUser(User user);
 
+    int deleteUser(String userId);
+
     int addStudyRecord(StudyRecord studyRecord);
 
     Double selectTotalStudyTimeById(String userId);

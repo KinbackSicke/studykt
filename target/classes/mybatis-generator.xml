@@ -55,6 +55,7 @@
 <!--        <table schema="DB2ADMIN" tableName="test_result" domainObjectName="TestResult"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="feedback" domainObjectName="Feedback"></table>-->
 <!--        <table schema="DB2ADMIN" tableName="message" domainObjectName="Message"></table>-->
+        <table schema="DB2ADMIN" tableName="admin" domainObjectName="Admin"></table>
 
 
     </context>

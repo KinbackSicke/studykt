@@ -1,7 +1,6 @@
 package com.studykt.controller;
 
 
-import com.studykt.entity.Course;
 import com.studykt.entity.Message;
 import com.studykt.error.BusinessError;
 import com.studykt.error.BusinessException;
@@ -53,7 +52,7 @@ public class MessageController extends BaseController {
     // 添加消息
     @ApiOperation(value = "add message", notes = "添加消息api")
     @PostMapping("/addMessage")
-    public CommonReturnType addCourse(@RequestBody Message message) throws BusinessException {
+    public CommonReturnType addMessage(@RequestBody Message message) throws BusinessException {
         if (message == null) {
             throw new BusinessException(BusinessError.UNKNOWN_ERROR);
         }

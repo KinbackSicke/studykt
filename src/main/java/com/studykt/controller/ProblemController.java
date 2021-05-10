@@ -35,8 +35,8 @@ public class ProblemController extends BaseController {
     private ProblemService problemService;
 
 
-    @ApiOperation(value = "get problems records from file", notes = "导入试题信息api")
-    @ApiImplicitParam(name="category", value="文件路径", required=true, dataType="string", paramType="query")
+    @ApiOperation(value = "get problems records from file", notes = "获取某个学科的试题信息api")
+    @ApiImplicitParam(name="category", value="学科分类名", required=true, dataType="string", paramType="query")
     @PostMapping("/getProblems")
     public CommonReturnType getProblems(String category) {
         List<ProblemVO> list = new ArrayList<>();
@@ -64,6 +64,18 @@ public class ProblemController extends BaseController {
         testResult.setCreateDate(new Date());
         problemService.addTestResult(testResult);
         return CommonReturnType.create("添加成功！");
+    }
+
+    @ApiOperation(value = "delete test result", notes = "删除用户考试记录api")
+    @ApiImplicitParam(name = "id", value = "考试记录id", required = true, dataType = "string", paramType = "query")
+    @PostMapping("/deleteTestResult")
+    public CommonReturnType deleteTestResult(String id) throws BusinessException {
+        if (StringUtils.isBlank(id)) {
+            throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        // 删除记录
+        problemService.deleteTestResult(id);
+        return CommonReturnType.create("删除成功！");
     }
 
     @ApiOperation(value = "add wrong problem ids", notes = "添加用户错误试题api")

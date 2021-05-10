@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int deleteUser(String userId) {
+        return userMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
     public int addStudyRecord(StudyRecord studyRecord) {
         return studyRecordMapper.insertSelective(studyRecord);
     }

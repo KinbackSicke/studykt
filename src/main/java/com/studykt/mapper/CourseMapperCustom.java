@@ -15,6 +15,8 @@ public interface CourseMapperCustom {
 
     List<CourseVO> selectAllCourses();
 
+    CourseVO selectCourseById(String courseId);
+
     Integer selectFavorCount(String courseId);
 
     List<CourseFavorVO> selectFavorCoursesByUserId(String userId);

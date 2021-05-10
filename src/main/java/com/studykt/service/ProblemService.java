@@ -1,5 +1,6 @@
 package com.studykt.service;
 
+import com.studykt.controller.vo.ProblemVO;
 import com.studykt.entity.Problem;
 import com.studykt.entity.ProblemOption;
 import com.studykt.entity.TestResult;
@@ -12,7 +13,11 @@ public interface ProblemService {
 
     List<Problem> selectByCategory(String category);
 
+    List<Problem> selectAll();
+
     int addProblem(Problem problem);
+
+    int addProblem(ProblemVO problemVO);
 
     int addProblems(List<Problem> problemList);
 
@@ -20,9 +25,15 @@ public interface ProblemService {
 
     int deleteProblemsByCategory(String category);
 
+    int updateProblem(Problem problem);
+
+    int updateProblem(ProblemVO problemVO);
+
     int addProblemOption(ProblemOption problemOption);
 
     int addProblemOptions(List<ProblemOption> problemOptions);
+
+    int deleteProblemOptionsByProblemId(String problemId);
 
     List<String> selectOptionContentByProblemId(String problemId);
 

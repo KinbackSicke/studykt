@@ -93,4 +93,7 @@ public interface ProblemMapper {
      * @mbg.generated Fri Apr 30 14:36:07 CST 2021
      */
     int updateByPrimaryKey(Problem record);
+
+
+    List<Problem> selectAll();
 }

@@ -31,6 +31,8 @@ public class BaseController {
     public Sid sid;
     // 用户登录redis
     public static final String USER_REDIS_SESSION = "user-redis-session";
+    // 管理员登录redis
+    public static final String ADMIN_REDIS_SESSION = "admin-redis-session";
     // 用户历史记录redis
     public static final String USER_COURSE_HISTORY = "user-course-history";
     // 用户最后一次学习时间
@@ -49,6 +51,8 @@ public class BaseController {
     public static final String API_WEIXIN_REQUEST_URL = "https://api.weixin.qq.com/sns/jscode2session";
     // 分页默认每页大小
     public static final Integer DEFAULT_PAGE_SIZE = 8;
+
+    public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)

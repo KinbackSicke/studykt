@@ -49,8 +49,8 @@ public class CourseController extends BaseController {
         return CommonReturnType.create();
     }
 
-    // 获取课程
-    @ApiOperation(value = "get all courses", notes = "获取所有课程api")
+    // 获取课程(已弃用)
+    /*@ApiOperation(value = "get all courses", notes = "获取所有课程api")
     @ApiImplicitParam(name = "curPage", value = "当前是第几页", required = true, dataType = "Integer", paramType = "query")
     @PostMapping("/allCourses")
     public CommonReturnType allCourses(Integer curPage) throws BusinessException {
@@ -59,7 +59,7 @@ public class CourseController extends BaseController {
         }
         PageResult result = courseService.getAllCourses(curPage, DEFAULT_PAGE_SIZE);
         return CommonReturnType.create(result);
-    }
+    }*/
 
     @ApiOperation(value = "get searched courses", notes = "搜索课程api")
     @ApiImplicitParams ({

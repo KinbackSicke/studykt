@@ -60,4 +60,14 @@ public class CourseCommentServiceImpl implements CourseCommentService {
         example.createCriteria().andCourseIdEqualTo(courseId);
         return courseCommentMapper.countByExample(example);
     }
+
+    @Override
+    public int deleteCommentByCourseId(String courseId) {
+        if (StringUtils.isBlank(courseId)) {
+            return -1;
+        }
+        CourseCommentExample example = new CourseCommentExample();
+        example.createCriteria().andCourseIdEqualTo(courseId);
+        return courseCommentMapper.deleteByExample(example);
+    }
 }
